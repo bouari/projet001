@@ -1,0 +1,67 @@
+<?php
+echo "Test Openshift!<br>";
+$servername = "mariadb";
+$username = "demo";
+$password = "j1p2t3r4";
+$dbname = "sampledb";
+
+$conn = new mysqli(
+	$servername,
+	$username,
+	$password,
+	$dbname
+);
+
+if ($conn->connect_error) {
+	    die('Connexion impossible : ' . $conn->connect_error);
+}
+
+/*
+$sql = "CREATE TABLE MaTable (
+	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	firstname VARCHAR(30) NOT NULL,
+	lastname VARCHAR(30) NOT NULL,
+	email VARCHAR(50),
+	reg_date TIMESTAMP
+)";
+
+if ($conn->query($sql) === TRUE) {
+	    echo "Table MaTable created successfully";
+} else {
+	    echo "Error creating table: " . $conn->error;
+}
+
+$sql = "INSERT INTO MaTable (firstname, lastname, email)
+	VALUES ('John', 'Doe', 'john@example.com');";
+$sql .= "INSERT INTO MaTable (firstname, lastname, email)
+	VALUES ('Mary', 'Moe', 'mary@example.com');";
+$sql .= "INSERT INTO MaTable (firstname, lastname, email)
+	VALUES ('Julie', 'Dooley', 'julie@example.com')";
+
+if ($conn->multi_query($sql) === TRUE) {
+    echo "New records created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+ */
+
+
+$sql = "SELECT id, firstname, lastname FROM MaTable;";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+	// output data of each row
+	while($row = $result->fetch_assoc()) {
+		echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+	}
+} else {
+		echo "0 results";
+}
+
+
+$conn->close();
+echo "<br>";
+echo "<br>";
+
+phpinfo();
